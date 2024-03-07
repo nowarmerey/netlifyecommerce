@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { Suspense } from "react";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutForm from "./_components/CheckoutForm";
@@ -15,9 +15,11 @@ function Checkout() {
     amount: Number(searchParams.get("amount")) * 100,
   };
   return (
-    <Elements stripe={stripePromise} options={options}>
-      <CheckoutForm amount={Number(searchParams.get("amount"))} />
-    </Elements>
+    <Suspense>
+      <Elements stripe={stripePromise} options={options}>
+        <CheckoutForm amount={Number(searchParams.get("amount"))} />
+      </Elements>
+    </Suspense>
   );
 }
 
